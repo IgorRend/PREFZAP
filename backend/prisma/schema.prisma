@@ -1,0 +1,604 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Models ──────────────────────────────────────────────
+// Note: SQLite does not support enums, so we use String fields instead.
+// Valid values:
+//   UserRole:         "ADMIN" | "AGENT"
+//   TicketStatus:     "BOT" | "QUEUE" | "OPEN" | "CLOSED"
+//   MessageOrigin:    "AGENT" | "BOT" | "CONTACT" | "SYSTEM"
+//   AutoDistribute:   "NONE" | "BALANCE" | "RANDOM" | "ROUND_ROBIN"
+//   HsmTemplateStatus: "APPROVED" | "PENDING" | "REJECTED"
+
+// ─── Tenants (Multi-Tenant Registry) ─────────────────────
+
+model Tenant {
+  id             String   @id @default(uuid())
+  name           String
+  domain         String?  @unique
+  businessNiche  String   @default("generic") // "generic" | "public_sector" | "healthcare" | "retail"
+  activeModules  String   @default("[\"ticketing\",\"bot_flow\",\"analytics\",\"internal_chat\",\"nps\",\"automations\",\"hsm_templates\",\"bulk_import\"]")
+  logoUrl        String?
+  isActive       Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  // Reverse relations
+  users              User[]
+  departments        Department[]
+  contacts           Contact[]
+  tickets            Ticket[]
+  connections        WhatsAppConnection[]
+  botFlows           BotFlow[]
+  settings           AccountSettings[]
+  templates          HsmTemplate[]
+  quickReplies       QuickReply[]
+  tags               Tag[]
+  kanbanBoards       KanbanBoard[]
+  webWidgets         WebWidget[]
+  internalRooms      InternalRoom[]
+  npsRatings         NpsRating[]
+  auditLogs          AuditLog[]
+
+  @@map("tenants")
+}
+
+// ─── Users ───────────────────────────────────────────────
+
+model User {
+  id                 String   @id @default(uuid())
+  name               String
+  email              String   @unique
+  password           String
+  role               String   @default("AGENT")
+  isSuperAdmin       Boolean  @default(false)
+  online             Boolean  @default(false)
+  maxConcurrentChats Int      @default(5)
+  lastAssignedAt     DateTime?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  // Tenant isolation
+  tenantId       String
+  tenant         Tenant   @relation(fields: [tenantId], references: [id])
+
+  departments    UserDepartment[]
+  assignedTickets Ticket[]
+  messages       Message[]
+
+  // Internal Chat relations
+  internalParticipations InternalParticipant[]
+  sentInternalMessages   InternalMessage[]
+  auditLogs              AuditLog[]
+
+  @@index([tenantId])
+  @@map("users")
+}
+
+model Department {
+  id        String   @id @default(uuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Tenant isolation
+  tenantId  String
+  tenant    Tenant   @relation(fields: [tenantId], references: [id])
+
+  users   UserDepartment[]
+  tickets Ticket[]
+
+  @@unique([tenantId, name])
+  @@index([tenantId])
+  @@map("departments")
+}
+
+model UserDepartment {
+  userId       String
+  departmentId String
+
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  department Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+
+  assignedAt DateTime @default(now())
+
+  @@id([userId, departmentId])
+  @@map("user_departments")
+}
+
+model Contact {
+  id            String   @id @default(uuid())
+  // WhatsApp display name (auto-updated from webhook)
+  name          String?
+  // CRM fields — filled manually by agent
+  fullName      String?
+  cpf           String?
+  email         String?
+  avatarUrl     String?
+  phone         String
+  profilePicUrl String?
+  // Contact Variables (bot flow state storage, JSON string: {"key":"value"})
+  variables     String   @default("{}")
+  // Merge: if this contact was merged INTO another, point to canonical
+  mergedIntoId  String?
+  mergedInto    Contact? @relation("ContactMerge", fields: [mergedIntoId], references: [id])
+  mergedFrom    Contact[] @relation("ContactMerge")
+  // Source channel: "whatsapp" | "web_widget" | "email" etc.
+  channel       String   @default("whatsapp")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Tenant isolation
+  tenantId      String
+  tenant        Tenant   @relation(fields: [tenantId], references: [id])
+
+  tickets         Ticket[]
+  webWidgetSessions WebWidgetSession[]
+
+  @@unique([tenantId, phone])
+  @@index([tenantId])
+  @@index([phone])
+  @@index([tenantId, phone])
+  @@map("contacts")
+}
+
+model Ticket {
+  id            String   @id @default(uuid())
+  protocol      String   @unique
+  status        String   @default("BOT")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  closedAt      DateTime?
+
+  contactId    String
+  contact      Contact     @relation(fields: [contactId], references: [id])
+
+  departmentId String?
+  department   Department? @relation(fields: [departmentId], references: [id])
+
+  userId       String?
+  user         User?       @relation(fields: [userId], references: [id])
+
+  botFlowId    String?
+  currentNodeId String?
+  lastContactMessageAt DateTime?
+
+  // Kanban placement
+  kanbanColumnId String?
+  kanbanColumn   KanbanColumn? @relation(fields: [kanbanColumnId], references: [id])
+
+  // Source channel that originated this ticket: "whatsapp" | "web_widget"
+  channel        String   @default("whatsapp")
+
+  // Excluir dos relatórios (ex.: fechamento automático fora do horário)
+  excludeFromReports Boolean @default(false)
+
+  // Tenant isolation
+  tenantId       String
+  tenant         Tenant   @relation(fields: [tenantId], references: [id])
+
+  messages Message[]
+  tags     TicketTag[]
+
+  @@index([status])
+  @@index([tenantId])
+  @@index([tenantId, status])
+  @@map("tickets")
+}
+
+model Message {
+  id         String   @id @default(uuid())
+  body       String?
+  mediaUrl   String?
+  mediaType  String?
+  origin     String
+  isInternal Boolean  @default(false)
+  // Authorship watermark — null for BOT / CONTACT / SYSTEM
+  userId     String?
+  user       User?    @relation(fields: [userId], references: [id])
+  // Denormalized name snapshot for immutable audit trail
+  senderName String?
+  createdAt  DateTime @default(now())
+
+  ticketId String
+  ticket   Ticket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+
+  whatsappMessageId String?
+
+  @@index([ticketId])
+  @@index([origin, isInternal])
+  @@unique([whatsappMessageId])
+  @@map("messages")
+}
+
+model BotFlow {
+  id           String  @id @default(uuid())
+  name         String
+  isActive     Boolean @default(false)
+  nodes        String  @default("[]")
+  edges        String  @default("[]")
+  globalConfig String  @default("{}")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Tenant isolation
+  tenantId     String
+  tenant       Tenant   @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@map("bot_flows")
+}
+
+model PasswordResetToken {
+  id        String   @id @default(uuid())
+  token     String   @unique
+  userId    String
+  expiresAt DateTime
+  used      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@map("password_reset_tokens")
+}
+
+model AccountSettings {
+  id                    String   @id @default(uuid())
+  allowPaidTemplates    Boolean  @default(false)
+  autoRenewWindowPrompt Boolean  @default(true)
+  autoDistribute        String   @default("ROUND_ROBIN")
+  logoUrl               String?
+  // Janela de 24h (só aplicável à Cloud API da Meta; no WhatsApp Web fica desligada)
+  enforce24hWindow      Boolean  @default(false)
+  // Business Hours
+  businessHoursMode     String   @default("always") // "always" | "custom" | "closed"
+  businessHoursJson     String   @default("{}")
+  awayMessage           String   @default("Estamos fora do horário de atendimento. Retornaremos em breve!")
+  timezone              String   @default("America/Sao_Paulo")
+  // NPS
+  npsEnabled            Boolean  @default(true)
+  npsMessage            String   @default("Por favor, avalie nosso atendimento de 1 a 10:")
+  npsExpirationHours    Int      @default(24)
+  // Automations
+  autoCloseMinutes      Int      @default(0)
+  slaAlertMinutes       Int      @default(0)
+  rejectCalls           Boolean  @default(true)
+  rejectCallMessage     String   @default("No momento não aceitamos ligações por WhatsApp. Por favor, digite sua mensagem.")
+  // Active Bot Flow
+  activeBotFlowId       String?
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+
+  // Tenant isolation — replaces singleton pattern
+  tenantId              String   @unique
+  tenant                Tenant   @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@map("account_settings")
+}
+
+model HsmTemplate {
+  id         String   @id @default(uuid())
+  name       String
+  namespace  String?
+  language   String   @default("pt_BR")
+  category   String?
+  components String   @default("[]")
+  status     String   @default("APPROVED")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  // Tenant isolation
+  tenantId   String
+  tenant     Tenant   @relation(fields: [tenantId], references: [id])
+
+  @@unique([tenantId, name])
+  @@index([tenantId])
+  @@map("hsm_templates")
+}
+
+// ─── WhatsApp Connections (Multi-Channel) ────────────────
+
+model WhatsAppConnection {
+  id              String   @id @default(uuid())
+  name            String
+  // Optional for Baileys connections
+  wabaId          String?
+  phoneNumberId   String?  @unique
+  accessTokenEnc  String?
+  verifyToken     String?
+  
+  // Evolution API instance name (e.g., "tenant_<id>") and auth token
+  evolutionInstanceName String?
+  evolutionToken        String?
+
+  // Connection state
+  type            String   @default("cloud_api") // "cloud_api" | "qr_code_web" | "official_meta"
+  sessionStatus   String   @default("disconnected") // "connected", "connecting", "qr_ready", "disconnected"
+  isConnected     Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Tenant isolation
+  tenantId        String
+  tenant          Tenant   @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@map("whatsapp_connections")
+}
+
+
+// ─── NPS Ratings ─────────────────────────────────────────
+
+model NpsRating {
+  id        String   @id @default(uuid())
+  ticketId  String
+  contactId String
+  agentId   String?
+  score     Int
+  comment   String?
+  createdAt DateTime @default(now())
+
+  // Tenant isolation
+  tenantId  String
+  tenant    Tenant   @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@index([ticketId])
+  @@index([agentId])
+  @@map("nps_ratings")
+}
+
+// ─── Quick Replies (Canned Responses) ────────────────────
+
+model QuickReply {
+  id        String   @id @default(uuid())
+  shortcut  String
+  message   String
+  createdAt DateTime @default(now())
+
+  // Tenant isolation
+  tenantId  String
+  tenant    Tenant   @relation(fields: [tenantId], references: [id])
+
+  @@unique([tenantId, shortcut])
+  @@index([tenantId])
+  @@map("quick_replies")
+}
+
+// ─── Tags ────────────────────────────────────────────────
+
+model Tag {
+  id        String   @id @default(uuid())
+  name      String
+  color     String   @default("#6366f1")
+  createdAt DateTime @default(now())
+
+  // Tenant isolation
+  tenantId  String
+  tenant    Tenant   @relation(fields: [tenantId], references: [id])
+
+  tickets TicketTag[]
+
+  @@unique([tenantId, name])
+  @@index([tenantId])
+  @@map("tags")
+}
+
+model TicketTag {
+  ticketId String
+  tagId    String
+
+  ticket Ticket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  tag    Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  assignedAt DateTime @default(now())
+
+  @@id([ticketId, tagId])
+  @@map("ticket_tags")
+}
+
+// ─── Internal Team Chat ──────────────────────────────────
+
+model InternalRoom {
+  id        String   @id @default(uuid())
+  name      String?
+  type      String   @default("direct")
+  createdBy String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Tenant isolation
+  tenantId  String
+  tenant    Tenant   @relation(fields: [tenantId], references: [id])
+
+  participants InternalParticipant[]
+  messages     InternalMessage[]
+
+  @@index([tenantId])
+  @@map("internal_rooms")
+}
+
+model InternalParticipant {
+  roomId   String
+  userId   String
+  role     String   @default("member")
+  joinedAt DateTime @default(now())
+
+  room InternalRoom @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  user User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([roomId, userId])
+  @@map("internal_participants")
+}
+
+model InternalMessage {
+  id            String   @id @default(uuid())
+  roomId        String
+  senderId      String
+  content       String?
+  attachmentUrl String?
+  messageType   String   @default("text")
+  createdAt     DateTime @default(now())
+
+  room   InternalRoom @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  sender User         @relation(fields: [senderId], references: [id])
+
+  readReceipts InternalReadReceipt[]
+
+  @@map("internal_messages")
+}
+
+model InternalReadReceipt {
+  messageId String
+  userId    String
+  readAt    DateTime @default(now())
+
+  message InternalMessage @relation(fields: [messageId], references: [id], onDelete: Cascade)
+
+  @@id([messageId, userId])
+  @@map("internal_read_receipts")
+}
+
+// ─── Kanban Boards ───────────────────────────────────────
+// Valid ColumnType: "default" | "start" | "end"
+// Tickets get a kanbanColumnId FK to place them on the board.
+
+model KanbanBoard {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  isDefault   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Tenant isolation
+  tenantId    String
+  tenant      Tenant   @relation(fields: [tenantId], references: [id])
+
+  columns     KanbanColumn[]
+
+  @@index([tenantId])
+  @@map("kanban_boards")
+}
+
+model KanbanColumn {
+  id          String   @id @default(uuid())
+  boardId     String
+  board       KanbanBoard @relation(fields: [boardId], references: [id], onDelete: Cascade)
+  name        String
+  color       String   @default("#6366f1")
+  position    Int      @default(0)     // ordering left-to-right
+  columnType  String   @default("default") // "start" | "default" | "end"
+  // Automation: moving a ticket here can trigger a status change
+  autoStatus  String?  // e.g. "CLOSED", "OPEN", "QUEUE" — null = no automation
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  tickets     Ticket[]
+
+  @@map("kanban_columns")
+}
+
+// ─── Web Widget (Live Chat para Sites) ───────────────────
+// WebWidget is created per-tenant. The embed JS uses widgetToken.
+// WebWidgetSession tracks each anonymous visitor conversation.
+
+model WebWidget {
+  id              String   @id @default(uuid())
+  name            String   @default("Widget do Site")
+  // Public token embedded in the <script> tag — safe to expose
+  widgetToken     String   @unique @default(uuid())
+  // Cosmetic config
+  config          String   @default("{}")
+  primaryColor    String   @default("#6366f1")
+  welcomeMessage  String   @default("Olá! 👋 Como podemos ajudar?")
+  agentName       String   @default("Atendimento")
+  allowedOrigin   String   @default("*")
+  isActive        Boolean  @default(true)
+  // Which bot flow handles web widget sessions (null = goes straight to queue)
+  botFlowId       String?
+  // Which department receives web widget tickets
+  departmentId    String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Tenant isolation
+  tenantId        String
+  tenant          Tenant   @relation(fields: [tenantId], references: [id])
+
+  sessions        WebWidgetSession[]
+
+  @@index([tenantId])
+  @@map("web_widgets")
+}
+
+model WebWidgetSession {
+  id            String   @id @default(uuid())
+  widgetId      String
+  widget        WebWidget @relation(fields: [widgetId], references: [id])
+  // Visitor fingerprint from browser (localStorage UUID generated by JS widget)
+  visitorId     String
+  // Visitor display name
+  visitorName   String   @default("Visitante")
+  // Resolved contact after CPF/email identification or merge
+  contactId     String?
+  contact       Contact? @relation(fields: [contactId], references: [id])
+  // Socket room ID for this session
+  socketRoom    String   @unique @default(uuid())
+  // Session metadata (JSON): {"ip":"...","userAgent":"...","page":"..."}
+  metadata      String   @default("{}")
+  endedAt       DateTime?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@unique([widgetId, visitorId])
+  @@map("web_widget_sessions")
+}
+
+// ─── Contact Merge Log (Audit) ────────────────────────────
+// Records every merge operation for audit trail.
+
+model ContactMergeLog {
+  id              String   @id @default(uuid())
+  sourceContactId String
+  targetContactId String
+  triggeredByUserId String?
+  mergeReason     String   @default("manual")
+  createdAt       DateTime @default(now())
+
+  @@map("contact_merge_logs")
+}
+
+// ─── Audit Trail ──────────────────────────────────────────
+// Logs every critical administrative action for governance.
+// Valid actions: CREATE | UPDATE | DELETE | LOGIN | LOGOUT | EXPORT | TRANSFER | CLOSE
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  userName  String?
+  action    String
+  entity    String
+  entityId  String?
+  oldValue  String?
+  newValue  String?
+  ip        String?
+  createdAt DateTime @default(now())
+
+  // Tenant isolation
+  tenantId  String?
+  tenant    Tenant?  @relation(fields: [tenantId], references: [id])
+
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([tenantId])
+  @@map("audit_logs")
+}

@@ -1,0 +1,11 @@
+src/lib/useDatabaseAuthState.ts(133,17): error TS2322: Type '(type: keyof SignalDataTypeMap, ids: string[]) => Promise<{ [id: string]: string | string[] | Uint8Array<ArrayBufferLike> | KeyPair | { [jid: string]: boolean; } | proto.Message.IAppStateSyncKeyData | LTHashState | { ...; }; }>' is not assignable to type '<T extends keyof SignalDataTypeMap>(type: T, ids: string[]) => Awaitable<{ [id: string]: SignalDataTypeMap[T]; }>'.
+  Type 'Promise<{ [id: string]: string | string[] | Uint8Array<ArrayBufferLike> | KeyPair | { [jid: string]: boolean; } | IAppStateSyncKeyData | LTHashState | { ...; }; }>' is not assignable to type 'Awaitable<{ [id: string]: SignalDataTypeMap[T]; }>'.
+    Type 'Promise<{ [id: string]: string | string[] | Uint8Array<ArrayBufferLike> | KeyPair | { [jid: string]: boolean; } | IAppStateSyncKeyData | LTHashState | { ...; }; }>' is not assignable to type 'Promise<{ [id: string]: SignalDataTypeMap[T]; }>'.
+      Type '{ [id: string]: string | string[] | Uint8Array<ArrayBufferLike> | KeyPair | { [jid: string]: boolean; } | IAppStateSyncKeyData | LTHashState | { ...; }; }' is not assignable to type '{ [id: string]: SignalDataTypeMap[T]; }'.
+        'string' index signatures are incompatible.
+          Type 'string | string[] | Uint8Array<ArrayBufferLike> | KeyPair | { [jid: string]: boolean; } | IAppStateSyncKeyData | LTHashState | { ...; }' is not assignable to type 'SignalDataTypeMap[T]'.
+            Type 'string' is not assignable to type 'SignalDataTypeMap[T]'.
+              Type 'string' is not assignable to type 'KeyPair & Uint8Array<ArrayBufferLike> & { [jid: string]: boolean; } & IAppStateSyncKeyData & LTHashState & string & string[] & { ...; }'.
+                Type 'string' is not assignable to type 'KeyPair'.
+src/modules/webhook/webhook.worker.ts(56,59): error TS2345: Argument of type 'string | null' is not assignable to parameter of type 'string'.
+  Type 'null' is not assignable to type 'string'.

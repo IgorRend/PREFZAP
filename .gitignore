@@ -1,0 +1,44 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependencies
+node_modules/
+frontend/node_modules/
+backend/node_modules/
+
+# Environment Variables
+.env
+.env.local
+
+# Build
+dist/
+build/
+out/
+.next/
+
+# Prisma
+**/dev.db
+backend/prisma/zapo_sessions/
+
+# Dados de runtime (documentos enviados por usuários, sessões WhatsApp) — não versionar
+backend/uploads/
+backend/public/uploads/
+
+# Backups / artefatos de scratch (DBs de backup, builds antigas, sidecars órfãos)
+*.bak
+*.bak-*
+*.bad
+dist.bak-*/
+backend/_cur_base.*
+backend/_git_base.*
+
+# Playwright MCP (snapshots de teste descartáveis)
+.playwright-mcp/
+
+# OS
+.DS_Store
+Thumbs.db

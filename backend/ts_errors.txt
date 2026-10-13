@@ -1,0 +1,57 @@
+src/modules/connections/connections.service.ts(95,85): error TS2554: Expected 1 arguments, but got 3.
+src/modules/connections/connections.service.ts(104,36): error TS2339: Property 'configureWebhook' does not exist on type 'typeof EvolutionService'.
+src/modules/connections/connections.service.ts(164,40): error TS2339: Property 'logout' does not exist on type 'typeof EvolutionService'.
+src/modules/connections/connections.service.ts(195,50): error TS2339: Property 'getInstanceStatus' does not exist on type 'typeof EvolutionService'.
+src/modules/connections/connections.service.ts(225,36): error TS2339: Property 'logout' does not exist on type 'typeof EvolutionService'.
+src/modules/contacts/contacts.controller.ts(22,56): error TS2345: Argument of type 'string | string[]' is not assignable to parameter of type 'string'.
+  Type 'string[]' is not assignable to type 'string'.
+src/modules/contacts/contacts.controller.ts(34,54): error TS2345: Argument of type 'string | string[]' is not assignable to parameter of type 'string'.
+  Type 'string[]' is not assignable to type 'string'.
+src/modules/contacts/contacts.controller.ts(39,44): error TS2345: Argument of type 'string | string[]' is not assignable to parameter of type 'string'.
+  Type 'string[]' is not assignable to type 'string'.
+src/modules/contacts/contacts.controller.ts(55,56): error TS2345: Argument of type 'string | string[]' is not assignable to parameter of type 'string'.
+  Type 'string[]' is not assignable to type 'string'.
+src/modules/contacts/contacts.controller.ts(69,13): error TS2345: Argument of type 'string | string[]' is not assignable to parameter of type 'string'.
+  Type 'string[]' is not assignable to type 'string'.
+src/modules/contacts/contacts.controller.ts(83,63): error TS2345: Argument of type 'string | string[]' is not assignable to parameter of type 'string'.
+  Type 'string[]' is not assignable to type 'string'.
+src/modules/contacts/contacts.service.ts(51,18): error TS7023: 'findById' implicitly has return type 'any' because it does not have a return type annotation and is referenced directly or indirectly in one of its return expressions.
+src/modules/evolution-webhook/evolution-webhook.controller.ts(65,47): error TS2339: Property 'extractConnectionId' does not exist on type 'typeof EvolutionService'.
+src/modules/kanban/kanban.controller.ts(18,52): error TS2345: Argument of type 'string | string[]' is not assignable to parameter of type 'string'.
+  Type 'string[]' is not assignable to type 'string'.
+src/modules/kanban/kanban.controller.ts(32,52): error TS2345: Argument of type 'string | string[]' is not assignable to parameter of type 'string'.
+  Type 'string[]' is not assignable to type 'string'.
+src/modules/kanban/kanban.controller.ts(38,43): error TS2345: Argument of type 'string | string[]' is not assignable to parameter of type 'string'.
+  Type 'string[]' is not assignable to type 'string'.
+src/modules/kanban/kanban.controller.ts(46,65): error TS2345: Argument of type 'string | string[]' is not assignable to parameter of type 'string'.
+  Type 'string[]' is not assignable to type 'string'.
+src/modules/kanban/kanban.controller.ts(52,53): error TS2345: Argument of type 'string | string[]' is not assignable to parameter of type 'string'.
+  Type 'string[]' is not assignable to type 'string'.
+src/modules/kanban/kanban.controller.ts(58,44): error TS2345: Argument of type 'string | string[]' is not assignable to parameter of type 'string'.
+  Type 'string[]' is not assignable to type 'string'.
+src/modules/kanban/kanban.controller.ts(64,55): error TS2345: Argument of type 'string | string[]' is not assignable to parameter of type 'string'.
+  Type 'string[]' is not assignable to type 'string'.
+src/modules/kanban/kanban.controller.ts(74,55): error TS2345: Argument of type 'string | string[]' is not assignable to parameter of type 'string'.
+  Type 'string[]' is not assignable to type 'string'.
+src/modules/messages/messages.service.ts(203,41): error TS2339: Property 'messages' does not exist on type 'never'.
+src/modules/widget/widget.controller.ts(28,51): error TS2345: Argument of type 'string | string[]' is not assignable to parameter of type 'string'.
+  Type 'string[]' is not assignable to type 'string'.
+src/modules/widget/widget.controller.ts(36,36): error TS2345: Argument of type 'string | string[]' is not assignable to parameter of type 'string'.
+  Type 'string[]' is not assignable to type 'string'.
+src/modules/widget/widget.controller.ts(53,34): error TS2339: Property 'primaryColor' does not exist on type '{ id: string; name: string; createdAt: Date; updatedAt: Date; isActive: boolean; departmentId: string | null; botFlowId: string | null; widgetToken: string; config: string; }'.
+src/modules/widget/widget.controller.ts(54,36): error TS2339: Property 'welcomeMessage' does not exist on type '{ id: string; name: string; createdAt: Date; updatedAt: Date; isActive: boolean; departmentId: string | null; botFlowId: string | null; widgetToken: string; config: string; }'.
+src/modules/widget/widget.controller.ts(55,31): error TS2339: Property 'agentName' does not exist on type '{ id: string; name: string; createdAt: Date; updatedAt: Date; isActive: boolean; departmentId: string | null; botFlowId: string | null; widgetToken: string; config: string; }'.
+src/modules/widget/widget.controller.ts(71,52): error TS18047: 'session' is possibly 'null'.
+src/modules/widget/widget.gateway.ts(53,32): error TS18047: 'session' is possibly 'null'.
+src/modules/widget/widget.gateway.ts(63,28): error TS18047: 'session' is possibly 'null'.
+src/modules/widget/widget.gateway.ts(67,42): error TS2339: Property 'primaryColor' does not exist on type '{ id: string; name: string; createdAt: Date; updatedAt: Date; isActive: boolean; departmentId: string | null; botFlowId: string | null; widgetToken: string; config: string; }'.
+src/modules/widget/widget.gateway.ts(68,44): error TS2339: Property 'welcomeMessage' does not exist on type '{ id: string; name: string; createdAt: Date; updatedAt: Date; isActive: boolean; departmentId: string | null; botFlowId: string | null; widgetToken: string; config: string; }'.
+src/modules/widget/widget.gateway.ts(69,39): error TS2339: Property 'agentName' does not exist on type '{ id: string; name: string; createdAt: Date; updatedAt: Date; isActive: boolean; departmentId: string | null; botFlowId: string | null; widgetToken: string; config: string; }'.
+src/modules/widget/widget.service.ts(24,17): error TS2353: Object literal may only specify known properties, and 'allowedOrigin' does not exist in type '(Without<WebWidgetCreateInput, WebWidgetUncheckedCreateInput> & WebWidgetUncheckedCreateInput) | (Without<...> & WebWidgetCreateInput)'.
+src/modules/widget/widget.service.ts(85,13): error TS2322: Type '{ id: string; createdAt: Date; updatedAt: Date; contactId: string | null; visitorId: string; socketRoom: string; metadata: string; endedAt: Date | null; widgetId: string; }' is not assignable to type '{ contact: { id: string; email: string | null; name: string | null; createdAt: Date; updatedAt: Date; channel: string; fullName: string | null; cpf: string | null; avatarUrl: string | null; phone: string; profilePicUrl: string | null; variables: string; mergedIntoId: string | null; } | null; } & { ...; }'.
+  Property 'contact' is missing in type '{ id: string; createdAt: Date; updatedAt: Date; contactId: string | null; visitorId: string; socketRoom: string; metadata: string; endedAt: Date | null; widgetId: string; }' but required in type '{ contact: { id: string; email: string | null; name: string | null; createdAt: Date; updatedAt: Date; channel: string; fullName: string | null; cpf: string | null; avatarUrl: string | null; phone: string; profilePicUrl: string | null; variables: string; mergedIntoId: string | null; } | null; }'.
+src/modules/widget/widget.service.ts(90,21): error TS2353: Object literal may only specify known properties, and 'visitorName' does not exist in type 'Without<WebWidgetSessionCreateInput, WebWidgetSessionUncheckedCreateInput> & WebWidgetSessionUncheckedCreateInput'.
+src/modules/widget/widget.service.ts(115,54): error TS2345: Argument of type 'string | null' is not assignable to parameter of type 'string'.
+  Type 'null' is not assignable to type 'string'.
+src/modules/widget/widget.service.ts(120,44): error TS2345: Argument of type 'string | null' is not assignable to parameter of type 'string'.
+  Type 'null' is not assignable to type 'string'.

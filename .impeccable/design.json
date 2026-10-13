@@ -1,0 +1,247 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-06-03T00:00:00.000Z",
+  "title": "Design System: ZAPO / Atende Mafra",
+  "extensions": {
+    "colorMeta": {
+      "live-current": {
+        "role": "primary",
+        "displayName": "Live Current",
+        "canonical": "oklch(0.68 0.16 162)",
+        "tonalRamp": ["#052e1e", "#064e33", "#065f40", "#047857", "#059669", "#10b981", "#34d399", "#6ee7b7"]
+      },
+      "live-current-deep": {
+        "role": "primary",
+        "displayName": "Live Current Deep",
+        "canonical": "oklch(0.60 0.16 162)",
+        "tonalRamp": ["#052e1e", "#064e33", "#065f40", "#047857", "#059669", "#10b981", "#34d399", "#6ee7b7"]
+      },
+      "live-current-bright": {
+        "role": "primary",
+        "displayName": "Live Current Bright",
+        "canonical": "oklch(0.79 0.14 162)",
+        "tonalRamp": ["#052e1e", "#064e33", "#065f40", "#047857", "#059669", "#10b981", "#34d399", "#6ee7b7"]
+      },
+      "surface-void": {
+        "role": "neutral",
+        "displayName": "Surface Void",
+        "canonical": "oklch(0.07 0.004 264)",
+        "tonalRamp": ["#09090b", "#111113", "#161618", "#1c1c1f", "#2a2a2e", "#3f3f46", "#71717a", "#f4f4f5"]
+      },
+      "surface-deep": {
+        "role": "neutral",
+        "displayName": "Surface Deep",
+        "canonical": "oklch(0.09 0.004 264)",
+        "tonalRamp": ["#09090b", "#111113", "#161618", "#1c1c1f", "#2a2a2e", "#3f3f46", "#71717a", "#f4f4f5"]
+      },
+      "surface-raised": {
+        "role": "neutral",
+        "displayName": "Surface Raised",
+        "canonical": "oklch(0.12 0.004 264)",
+        "tonalRamp": ["#09090b", "#111113", "#161618", "#1c1c1f", "#2a2a2e", "#3f3f46", "#71717a", "#f4f4f5"]
+      },
+      "surface-overlay": {
+        "role": "neutral",
+        "displayName": "Surface Overlay",
+        "canonical": "oklch(0.15 0.004 264)",
+        "tonalRamp": ["#09090b", "#111113", "#161618", "#1c1c1f", "#2a2a2e", "#3f3f46", "#71717a", "#f4f4f5"]
+      },
+      "surface-float": {
+        "role": "neutral",
+        "displayName": "Surface Float",
+        "canonical": "oklch(0.20 0.004 264)",
+        "tonalRamp": ["#09090b", "#111113", "#161618", "#1c1c1f", "#2a2a2e", "#3f3f46", "#71717a", "#f4f4f5"]
+      },
+      "ink-primary": {
+        "role": "neutral",
+        "displayName": "Ink Primary",
+        "canonical": "oklch(0.97 0.003 264)",
+        "tonalRamp": ["#09090b", "#1c1c1f", "#2a2a2e", "#52525b", "#71717a", "#a1a1aa", "#d4d4d8", "#f4f4f5"]
+      },
+      "ink-secondary": {
+        "role": "neutral",
+        "displayName": "Ink Secondary",
+        "canonical": "oklch(0.88 0.003 264)",
+        "tonalRamp": ["#09090b", "#1c1c1f", "#2a2a2e", "#52525b", "#71717a", "#a1a1aa", "#d4d4d8", "#f4f4f5"]
+      },
+      "ink-muted": {
+        "role": "neutral",
+        "displayName": "Ink Muted",
+        "canonical": "oklch(0.73 0.005 264)",
+        "tonalRamp": ["#09090b", "#1c1c1f", "#2a2a2e", "#52525b", "#71717a", "#a1a1aa", "#d4d4d8", "#f4f4f5"]
+      },
+      "ink-dim": {
+        "role": "neutral",
+        "displayName": "Ink Dim",
+        "canonical": "oklch(0.55 0.008 264)",
+        "tonalRamp": ["#09090b", "#1c1c1f", "#2a2a2e", "#52525b", "#71717a", "#a1a1aa", "#d4d4d8", "#f4f4f5"]
+      },
+      "status-error": {
+        "role": "semantic",
+        "displayName": "Status Error",
+        "canonical": "oklch(0.62 0.20 25)",
+        "tonalRamp": ["#450a0a", "#7f1d1d", "#991b1b", "#b91c1c", "#dc2626", "#ef4444", "#f87171", "#fca5a5"]
+      },
+      "status-warning": {
+        "role": "semantic",
+        "displayName": "Status Warning",
+        "canonical": "oklch(0.73 0.17 75)",
+        "tonalRamp": ["#451a03", "#78350f", "#92400e", "#b45309", "#d97706", "#f59e0b", "#fbbf24", "#fde68a"]
+      },
+      "status-info": {
+        "role": "semantic",
+        "displayName": "Status Info",
+        "canonical": "oklch(0.63 0.19 245)",
+        "tonalRamp": ["#172554", "#1e3a8a", "#1d4ed8", "#2563eb", "#3b82f6", "#60a5fa", "#93c5fd", "#dbeafe"]
+      }
+    },
+    "typographyMeta": {
+      "display":  { "displayName": "Display",  "purpose": "Page section headings, modal titles, major panel labels. Appears sparingly — one per context." },
+      "headline": { "displayName": "Headline", "purpose": "Card headings, sidebar section group labels, dialog sub-headings." },
+      "title":    { "displayName": "Title",    "purpose": "Subsection labels, form group headers, table column names." },
+      "body":     { "displayName": "Body",     "purpose": "Message text, list item content, descriptions, form helper text." },
+      "label":    { "displayName": "Label",    "purpose": "Field labels, badge text, metadata chips. Uppercase only. Four words maximum." }
+    },
+    "shadows": [
+      { "name": "ambient",          "value": "0 1px 3px rgba(0,0,0,0.5)",          "purpose": "Inset detail on buttons or small inline lifts." },
+      { "name": "modal",            "value": "0 8px 32px rgba(0,0,0,0.5)",          "purpose": "Floating panels, popovers, command palette panel." },
+      { "name": "overlay",          "value": "0 20px 60px rgba(0,0,0,0.6)",         "purpose": "Full-screen modal dialogs, drawers." },
+      { "name": "live-glow",        "value": "0 0 24px rgba(16,185,129,0.18)",      "purpose": "Signature material for active connection badges and primary CTAs on setup flows. ≤2 uses per screen." },
+      { "name": "live-glow-strong", "value": "0 0 48px rgba(16,185,129,0.28)",      "purpose": "Reserved for the confirmed active WhatsApp connection indicator only." }
+    ],
+    "motion": [
+      { "name": "ease-smooth",    "value": "cubic-bezier(0.4, 0, 0.2, 1)",       "purpose": "Default easing for all state transitions (hover, focus, active, open/close)." },
+      { "name": "ease-spring",    "value": "cubic-bezier(0.34, 1.56, 0.64, 1)",  "purpose": "Reserved for single-use moments: connection established confirmation. Not a general hover easing." },
+      { "name": "duration-fast",  "value": "150ms",                              "purpose": "Standard hover and focus transitions." },
+      { "name": "duration-base",  "value": "200ms",                              "purpose": "Panel entrance, fade-in, modal open." },
+      { "name": "duration-slow",  "value": "300ms",                              "purpose": "Sidebar collapse/expand." }
+    ],
+    "breakpoints": [
+      { "name": "sidebar-expanded",  "value": "232px", "purpose": "Default sidebar width." },
+      { "name": "sidebar-collapsed", "value": "60px",  "purpose": "Icon-only sidebar state, toggled by user and persisted to localStorage." }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "High-signal confirmed actions: send message, save settings, confirm assignment.",
+      "html": "<button class=\"ds-btn-primary\"><svg width=\"13\" height=\"13\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><line x1=\"22\" y1=\"2\" x2=\"11\" y2=\"13\"/><polygon points=\"22 2 15 22 11 13 2 9 22 2\"/></svg>Enviar mensagem</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: 8px; font-size: 13px; font-weight: 600; font-family: 'Geist Variable', system-ui, sans-serif; background: #10b981; color: #09090b; border: 1px solid #059669; cursor: pointer; transition: background 150ms cubic-bezier(0.4,0,0.2,1), border-color 150ms; white-space: nowrap; line-height: 1; } .ds-btn-primary:hover { background: #059669; border-color: #047857; } .ds-btn-primary:focus-visible { outline: 2px solid rgba(16,185,129,0.5); outline-offset: 2px; } .ds-btn-primary:active { background: #047857; } .ds-btn-primary:disabled { opacity: 0.5; cursor: not-allowed; pointer-events: none; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Secondary and cancel actions. Paired with primary in dialogs.",
+      "html": "<button class=\"ds-btn-secondary\">Cancelar</button>",
+      "css": ".ds-btn-secondary { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: 8px; font-size: 13px; font-weight: 600; font-family: 'Geist Variable', system-ui, sans-serif; background: #1c1c1f; color: #d4d4d8; border: 1px solid rgba(255,255,255,0.10); cursor: pointer; transition: background 150ms cubic-bezier(0.4,0,0.2,1); white-space: nowrap; line-height: 1; } .ds-btn-secondary:hover { background: #222225; } .ds-btn-secondary:focus-visible { outline: 2px solid rgba(16,185,129,0.5); outline-offset: 2px; } .ds-btn-secondary:disabled { opacity: 0.5; cursor: not-allowed; pointer-events: none; }"
+    },
+    {
+      "name": "Ghost Button (icon)",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Toolbar controls, list row actions, icon-only triggers.",
+      "html": "<button class=\"ds-btn-ghost\" title=\"Mais opções\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"5\" r=\"1\"/><circle cx=\"12\" cy=\"12\" r=\"1\"/><circle cx=\"12\" cy=\"19\" r=\"1\"/></svg></button>",
+      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 6px; background: transparent; border: none; color: #71717a; cursor: pointer; transition: background 120ms, color 120ms; flex-shrink: 0; } .ds-btn-ghost:hover { background: #1c1c1f; color: #f4f4f5; } .ds-btn-ghost:focus-visible { outline: 2px solid rgba(16,185,129,0.5); outline-offset: 2px; } .ds-btn-ghost:disabled { opacity: 0.4; cursor: not-allowed; }"
+    },
+    {
+      "name": "Badge: Active",
+      "kind": "chip",
+      "refersTo": "badge-green",
+      "description": "Open tickets, online agents, live connections.",
+      "html": "<span class=\"ds-badge-green\">Ativo</span>",
+      "css": ".ds-badge-green { display: inline-flex; align-items: center; gap: 3px; padding: 2px 7px; border-radius: 9999px; font-size: 10px; font-weight: 700; font-family: 'Geist Variable', system-ui, sans-serif; letter-spacing: 0.04em; text-transform: uppercase; background: rgba(16,185,129,0.12); color: #34d399; border: 1px solid rgba(16,185,129,0.25); line-height: 1.4; }"
+    },
+    {
+      "name": "Badge: Pending",
+      "kind": "chip",
+      "refersTo": "badge-yellow",
+      "description": "Waiting, unassigned, pending queue states.",
+      "html": "<span class=\"ds-badge-yellow\">Aguardando</span>",
+      "css": ".ds-badge-yellow { display: inline-flex; align-items: center; gap: 3px; padding: 2px 7px; border-radius: 9999px; font-size: 10px; font-weight: 700; font-family: 'Geist Variable', system-ui, sans-serif; letter-spacing: 0.04em; text-transform: uppercase; background: rgba(245,158,11,0.12); color: #fbbf24; border: 1px solid rgba(245,158,11,0.25); line-height: 1.4; }"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input-default",
+      "description": "Standard form input and search field.",
+      "html": "<div class=\"ds-field\"><label class=\"ds-field-label\">Buscar contato</label><input class=\"ds-input\" type=\"text\" placeholder=\"Nome, telefone ou protocolo...\"></div>",
+      "css": ".ds-field { display: flex; flex-direction: column; gap: 4px; } .ds-field-label { font-size: 10px; font-weight: 700; color: #71717a; text-transform: uppercase; letter-spacing: 0.06em; font-family: 'Geist Variable', system-ui, sans-serif; } .ds-input { width: 100%; background: #1c1c1f; border: 1px solid rgba(255,255,255,0.10); border-radius: 8px; padding: 8px 10px; font-size: 13px; color: #f4f4f5; font-family: 'Geist Variable', system-ui, sans-serif; outline: none; transition: border-color 150ms; box-sizing: border-box; } .ds-input::placeholder { color: #52525b; } .ds-input:focus { border-color: rgba(16,185,129,0.35); } .ds-input:disabled { opacity: 0.4; }"
+    },
+    {
+      "name": "Navigation Item",
+      "kind": "nav",
+      "refersTo": "button-ghost",
+      "description": "Left sidebar navigation link. Shows default, hover, and active states.",
+      "html": "<nav class=\"ds-nav\"><div class=\"ds-nav-item\"><svg width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\"/><path d=\"M3 9h18M9 21V9\"/></svg><span>Dashboard</span></div><div class=\"ds-nav-item ds-nav-item--active\"><svg width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z\"/></svg><span>Atendimentos</span></div><div class=\"ds-nav-item\"><svg width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"2\" y=\"3\" width=\"6\" height=\"4\"/><rect x=\"9\" y=\"3\" width=\"6\" height=\"4\"/><rect x=\"16\" y=\"3\" width=\"6\" height=\"4\"/><rect x=\"2\" y=\"10\" width=\"6\" height=\"4\"/><rect x=\"9\" y=\"10\" width=\"6\" height=\"4\"/></svg><span>Kanban</span></div></nav>",
+      "css": ".ds-nav { display: flex; flex-direction: column; gap: 1px; } .ds-nav-item { display: flex; align-items: center; gap: 10px; padding: 9px 14px; background: transparent; font-size: 13px; font-weight: 500; color: #a1a1aa; font-family: 'Geist Variable', system-ui, sans-serif; cursor: pointer; transition: background 120ms, color 120ms; border-radius: 0; } .ds-nav-item:hover { background: rgba(255,255,255,0.04); color: #f4f4f5; } .ds-nav-item--active { background: rgba(16,185,129,0.08); color: #10b981; font-weight: 600; }"
+    },
+    {
+      "name": "Chat Bubble: Outgoing",
+      "kind": "custom",
+      "refersTo": "button-primary",
+      "description": "Agent-sent message. The emerald gradient is the product's most recognizable element.",
+      "html": "<div class=\"ds-chat\"><div class=\"ds-bubble-out\"><p>Olá! Em que posso ajudar hoje?</p><span class=\"ds-bubble-time\">14:32 ✓✓</span></div></div>",
+      "css": ".ds-chat { display: flex; flex-direction: column; gap: 4px; padding: 12px; background: #09090b; } .ds-bubble-out { max-width: 72%; align-self: flex-end; padding: 10px 14px; background: linear-gradient(135deg, #059669, #10b981); color: #fff; border-radius: 16px 16px 4px 16px; box-shadow: 0 2px 10px rgba(16,185,129,0.20); font-size: 14px; line-height: 1.5; font-family: 'Geist Variable', system-ui, sans-serif; } .ds-bubble-time { display: block; font-size: 10px; color: rgba(255,255,255,0.65); margin-top: 4px; text-align: right; }"
+    },
+    {
+      "name": "Chat Bubble: Incoming",
+      "kind": "custom",
+      "refersTo": "input-default",
+      "description": "Citizen-sent message bubble.",
+      "html": "<div class=\"ds-chat-in\"><div class=\"ds-bubble-in\"><p>Preciso de informações sobre o alvará de construção.</p><span class=\"ds-bubble-time-in\">14:30</span></div></div>",
+      "css": ".ds-chat-in { display: flex; flex-direction: column; gap: 4px; padding: 12px; background: #09090b; } .ds-bubble-in { max-width: 72%; align-self: flex-start; padding: 10px 14px; background: #1c1c1f; color: #f4f4f5; border: 1px solid rgba(255,255,255,0.06); border-radius: 16px 16px 16px 4px; font-size: 14px; line-height: 1.5; font-family: 'Geist Variable', system-ui, sans-serif; } .ds-bubble-time-in { display: block; font-size: 10px; color: #71717a; margin-top: 4px; }"
+    },
+    {
+      "name": "Card Container",
+      "kind": "card",
+      "refersTo": "input-default",
+      "description": "Standard surface container for panels, stat blocks, and settings sections.",
+      "html": "<div class=\"ds-card\"><p class=\"ds-card-label\">Atendimentos Hoje</p><p class=\"ds-card-value\">1,284</p><p class=\"ds-card-sub\">+12% vs. ontem</p></div>",
+      "css": ".ds-card { padding: 20px; background: #111113; border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; font-family: 'Geist Variable', system-ui, sans-serif; display: flex; flex-direction: column; gap: 6px; } .ds-card-label { font-size: 11px; font-weight: 700; color: #71717a; text-transform: uppercase; letter-spacing: 0.06em; } .ds-card-value { font-size: 28px; font-weight: 700; color: #f4f4f5; line-height: 1.1; } .ds-card-sub { font-size: 12px; color: #34d399; font-weight: 500; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Sharp Desk",
+    "overview": "This system is built for agents who live inside it. Not a dashboard you visit once a day — a workspace you occupy for eight hours, resolving citizen requests through WhatsApp at volume. The visual grammar reflects that context precisely: every pixel serves function, density is a virtue, and decoration competes with the task and loses.\n\nThe palette is near-black zinc with a single, precise emerald accent. The zinc surfaces recede so that content — names, messages, statuses, timestamps — reads at a glance. The emerald (\"Live Current\") appears only where it carries meaning: an active ticket, a confirmed send, a live connection, the outgoing message bubble. Its rarity makes it a reliable signal.\n\nThis system explicitly rejects the aesthetic of generic SaaS helpdesks — HubSpot, Zendesk, Freshdesk — with their beige-white surfaces and padding sized for comfort rather than throughput. It equally rejects the WhatsApp Web clone reflex: this interface handles WhatsApp data but is a professional operator tool, not a reskin of a consumer app.",
+    "keyCharacteristics": [
+      "Dark-only. No light mode. The zinc surface IS the product identity.",
+      "Single accent. Live Current (emerald) is used for active state, primary action, and live indicators only. Never for decoration.",
+      "Tonal layering, not shadows. Depth is conveyed by stepping through the zinc ramp. Shadows are reserved for floating layers.",
+      "Dense and direct. Components are sized for operators who scan, not users who browse.",
+      "One typeface. Geist Variable across all roles. Weight and size carry the entire hierarchy."
+    ],
+    "rules": [
+      { "name": "The One Signal Rule",   "body": "Live Current appears on ≤15% of any given screen surface. Reserve it for primary actions, active states, and live indicators. If multiple elements are emerald, at least one is wrong.", "section": "colors" },
+      { "name": "The Tint Rule",         "body": "Semantic color backgrounds use the base color at 8–15% opacity, never at full saturation. A green-tinted badge is a status cue; a fully green cell is noise.", "section": "colors" },
+      { "name": "The Tonal-First Rule",  "body": "Before adding a shadow to separate two surfaces, step one up or down the zinc ladder. Shadows on resting surfaces indicate a modeling failure.", "section": "elevation" },
+      { "name": "The Glow Reserve Rule", "body": "The emerald glow is a signature material, not a hover pattern. At most two elements per screen may carry it. Standard focus is a border-color shift to rgba(16,185,129,0.35).", "section": "elevation" },
+      { "name": "The No-Display-Font Rule", "body": "Geist Variable is the only typeface. No serif, no condensed, no mono for UI chrome.", "section": "typography" },
+      { "name": "The Uppercase Ceiling", "body": "All-caps applies to Label-scale text only: 10–11px, four words maximum. Never to button labels, error messages, or descriptions.", "section": "typography" }
+    ],
+    "dos": [
+      "Do use tonal surface steps before shadows when separating adjacent panels.",
+      "Do reserve Live Current for primary actions, active/selected states, and live indicators only.",
+      "Do use the five badge variants (green, yellow, blue, gray, indigo) as the complete status vocabulary.",
+      "Do use the small (-sm) button and compact padding inside panels and forms.",
+      "Do use Geist font-feature settings (cv02, cv03, cv04, cv11) on every text context.",
+      "Do size focus rings as a border-color shift to rgba(16,185,129,0.35).",
+      "Do use sentence case for all interactive labels, button text, error messages, and descriptive copy.",
+      "Do use rgba(255,255,255,0.06) as the divider between adjacent surfaces of the same depth."
+    ],
+    "donts": [
+      "Don't apply the HubSpot / Zendesk / Freshdesk aesthetic: no light surfaces, no rounded blue primary buttons, no generous padding for comfort.",
+      "Don't make the chat interface look like WhatsApp Web. WhatsApp's teal header, green status bars, and consumer iconography are prohibited.",
+      "Don't use border-left or border-right greater than 1px as a colored accent stripe on nav items, cards, or list rows.",
+      "Don't apply background-clip: text with a gradient fill to any text element.",
+      "Don't use the emerald glow as a general hover or focus style.",
+      "Don't introduce a light mode or light-surface variant.",
+      "Don't add decorative motion: no page-load entrances, no staggered list animations, no scroll-driven choreography.",
+      "Don't use glassmorphism as a default surface style.",
+      "Don't apply uppercase to body text, button labels, dialog content, or error messages.",
+      "Don't introduce new accent hues. Violet and blue are semantic-only. Live Current is the only brand color."
+    ]
+  }
+}
